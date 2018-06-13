@@ -6,6 +6,8 @@ I'd like to start off by asking you a trivia question:
 
 Who pitched better in 2015? Shelby Miller or Drew Hutchison?  
 
+![](miller.jpg) ![](hutch.jpg)
+
 Here's a hint. Their records were 6-17 and 13-5, respectively.  
 
 I'm guessing that with this information you would be comfortable answering Drew Hutchison.  
