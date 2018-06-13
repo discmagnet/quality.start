@@ -28,10 +28,10 @@ Now... the Quality Start is far from a perfect statistic. You can't even use it 
 
 ## Methodology
 
-I've done a fair amount of research on statistics that measure pitching performance, and I've noticed that very few, if any, incorporate run expectancy. Work has already been done with RE24 (Run Expectancy based on 24 base-out states) for both hitters and pitchers, but why not use run expectancy to create a new set of criteria for the Quality Start?
+I've looked at many statistics that measure pitching performance, and I've noticed that very few, if any, incorporate run expectancy. One statistic that does is RE24 (Run Expectancy based on 24 base-out states) for both hitters and pitchers, but why not use run expectancy to create a new set of criteria for the Quality Start?
 
 > Rather than award a pitcher a Quality Start for pitching at least 6 innings while allowing 3 earned runs or less, a *quality* start should be awarded if the pitcher performs better than the league average, i.e. you should expect a lead at the end of the inning in which the starter leaves the game.
 
 This can easily be represented with the following formula:
 
-$$PPS = (X*IP)-(RA+ERC)$$
+$PPS = (X*IP)-(RA+ERC)$
