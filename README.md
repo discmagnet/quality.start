@@ -48,21 +48,82 @@ The Runs Expectancy Matrix is a useful sabermetric tool that tells us the number
 
 What's a base-out state?
 
-A base-out state is a combination of the base occupancy and the number of outs at the beginning of each play. There are 8 different ways the bases can be occupied and there are 3 different out situations, so 8 x 3 = 24 base-out states.
+A base-out state is a combination of the base occupancy and the number of outs at the beginning of each play. There are 8 different ways the bases can be occupied and there are 3 different out situations, so 8 x 3 = 24 base-out states. These 24 base-out states are the framework of the Runs Expectancy Matrix, as seen in the table below.
 
-        | **0 Outs** | **1 Out** | **2 Outs**
--------:|:----------:|:---------:|:----------:
-**---** |            |           |
-**--1** |            |           |
-**-2-** |            |           |
-**-21** |            |           |
-**3--** |            |           |
-**3-1** |            |           |
-**32-** |            |           |
-**321** |            |           |
+|          | **0 Outs** | **1 Out** | **2 Outs**
+:---------:|:----------:|:---------:|:----------:
+ **- - -** |            |           |
+ **- - 1** |            |           |
+ **- 2 -** |            |           |
+ **- 2 1** |            |           |
+ **3 - -** |            |           |
+ **3 - 1** |            |           |
+ **3 2 -** |            |           |
+ **3 2 1** |            |           |
 
-Just to make sure you fully understand this concept, let's run through a quick example on how a Runs Expectancy Matrix is built. We'll run through a hypothetical half-inning and develop a corresponding Runs Expectancy Matrix based on this data.
-<<<<<<< HEAD
+Just to make sure you fully understand this concept, let's run through a quick example on how a Runs Expectancy Matrix is built. We'll run through a hypothetical half-inning and develop a corresponding Runs Expectancy Matrix.
 
-=======
->>>>>>> fcd7da61bb619b164238a8dadc2f051bf3ad8a23
+Every inning starts the same way: 'bases empty, no one out', so we'll set up a counter in this state. The counter (denoted R) will keep track of every run scored for the remainder of the inning.
+
+|          | **0 Outs** | **1 Out** | **2 Outs**
+:---------:|:----------:|:---------:|:----------:
+ **- - -** |  R = 0     |           |
+ **- - 1** |            |           |
+ **- 2 -** |            |           |
+ **- 2 1** |            |           |
+ **3 - -** |            |           |
+ **3 - 1** |            |           |
+ **3 2 -** |            |           |
+ **3 2 1** |            |           |
+ 
+Suppose the inning begins with a lead-off single. The base-out state changes to 'man on first, no one out', so we'll add counter to this new state.
+
+|          | **0 Outs** | **1 Out** | **2 Outs**
+:---------:|:----------:|:---------:|:----------:
+ **- - -** |  R = 0     |           |
+ **- - 1** |  R = 0     |           |
+ **- 2 -** |            |           |
+ **- 2 1** |            |           |
+ **3 - -** |            |           |
+ **3 - 1** |            |           |
+ **3 2 -** |            |           |
+ **3 2 1** |            |           |
+ 
+Similarly, if the next batter strikes out, we transition to the 'man on first, 1 out' state and set up another counter.
+
+|          | **0 Outs** | **1 Out** | **2 Outs**
+:---------:|:----------:|:---------:|:----------:
+ **- - -** |  R = 0     |           |
+ **- - 1** |  R = 0     |  R = 0    |
+ **- 2 -** |            |           |
+ **- 2 1** |            |           |
+ **3 - -** |            |           |
+ **3 - 1** |            |           |
+ **3 2 -** |            |           |
+ **3 2 1** |            |           |
+
+With a man on first and one out, the third batter blasts a 2-run homerun. The base-out state transitions to 'bases empty, 1 out', but more importantly, 2 runs scored in the process. Thus, for *each* of the previous counters we add 2 runs to the total. Note that we do not add 2 runs to the newly added counter.
+
+|          | **0 Outs** | **1 Out** | **2 Outs**
+:---------:|:----------:|:---------:|:----------:
+ **- - -** |  R = 2     |  R = 0    |
+ **- - 1** |  R = 2     |  R = 2    |
+ **- 2 -** |            |           |
+ **- 2 1** |            |           |
+ **3 - -** |            |           |
+ **3 - 1** |            |           |
+ **3 2 -** |            |           |
+ **3 2 1** |            |           |
+ 
+Suppose the fourth batter hits another homerun. Back to back, baby! As a result, we stay in the 'bases empty, 1 out' state and add another run. We set up a second counter in the same state and increment the other counters.
+
+|          | **0 Outs** | **1 Out**     | **2 Outs**
+:---------:|:----------:|:-------------:|:----------:
+ **- - -** |  R = 3     |  R = 1, R = 0 |
+ **- - 1** |  R = 3     |  R = 3        |
+ **- 2 -** |            |               |
+ **- 2 1** |            |               |
+ **3 - -** |            |               |
+ **3 - 1** |            |               |
+ **3 2 -** |            |               |
+ **3 2 1** |            |               |
