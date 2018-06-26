@@ -62,4 +62,7 @@ A base-out state is a combination of the base occupancy and the number of outs a
 **321** |            |           |
 
 Just to make sure you fully understand this concept, let's run through a quick example on how a Runs Expectancy Matrix is built. We'll run through a hypothetical half-inning and develop a corresponding Runs Expectancy Matrix based on this data.
+<<<<<<< HEAD
 
+=======
+>>>>>>> fcd7da61bb619b164238a8dadc2f051bf3ad8a23
