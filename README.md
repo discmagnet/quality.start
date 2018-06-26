@@ -34,4 +34,31 @@ I've looked at many statistics that measure pitching performance, and I've notic
 
 This can easily be represented with the following formula:
 
-$PPS = (X*IP)-(RA+ERC)$
+`PPS = (LARA * IP) - (RA + ERC)`
+
+where `PPS` stands for "Pitching Performance Statistic", `LARA` is the league-average runs allowed per inning, `IP` is the innings pitched (rounding up if the starter can't finish an inning), `RA` is the runs the starter has allowed *the moment he leaves the game*, and `ERC` is the expected number of runs that we will charge to the started if he can't finish the inning. Essentially, the PPS is the difference between the number of runs a league average pitcher would allow in the same number of innings and the expected number of runs the starter allows.
+
+I say "expected number of runs the starter allows" to address one of the issues with the current Quality Start statistic. Right now, it is entirely possible for a starter to be in line for a Quality Start and have that taken away from him **without ever throwing a pitch**. This can happen when he leaves the game with runners still on base. Whenever the starter leaves with runners on base, his pitching line is still in jeopardy. If the reliever allows the inherited runners to score, the starter gets charged. Thus, one of my enhancements is taking the bullpen completely out of the equation. Instead, whenever the starter leaves the game with runners still on base, he is charged for the number of runs we would expect to score in the remainder of the inning (`ERC`). This `ERC` can easily be found using a Runs Expectancy Matrix.
+
+### Runs Expectancy Matrix
+
+If you're already familiar with the Runs Expectancy Matrix, feel free to skip this section, but I think some you are unfamiliar with this concept, so I'll talk more about it.
+
+The Runs Expectancy Matrix is a useful sabermetric tool that tells us the number of runs we would expect to be scored in the remainder of an inning for each of the 24 possible base-out states.
+
+What's a base-out state?
+
+A base-out state is a combination of the base occupancy and the number of outs at the beginning of each play. There are 8 different ways the bases can be occupied and there are 3 different out situations, so 8 x 3 = 24 base-out states.
+
+        | **0 Outs** | **1 Out** | **2 Outs**
+-------:|:----------:|:---------:|:----------:
+**---** |            |           |
+**--1** |            |           |
+**-2-** |            |           |
+**-21** |            |           |
+**3--** |            |           |
+**3-1** |            |           |
+**32-** |            |           |
+**321** |            |           |
+
+Just to make sure you fully understand this concept, let's run through a quick example on how a Runs Expectancy Matrix is built. We'll run through a hypothetical half-inning and develop a corresponding Runs Expectancy Matrix based on this data.
