@@ -1,4 +1,4 @@
-function(season,tag){
+quality <- function(season, tag){
   # INPUTS:   season -> which year? (e.g. 2016)
   #           tag    -> the suffix after the player's name
   #                     to identify the season (e.g. "'16")
@@ -13,7 +13,7 @@ function(season,tag){
   #           manipulates the data to tell us quality
   #           start information for every pitcher that
   #           season.
-  # APPROXIMATE COMPUTING TIME: 5 min 30 sec
+  # ~ TIME:   5 min 30 sec
   
   # Make sure the plyr, dplyr, and tidyr packages are
   # loaded.
@@ -116,9 +116,14 @@ function(season,tag){
   
   # Compute total quality starts over season for each pitcher,
   # as well as quality start rate and average dRA
-  pitch <- pitch %>% group_by(PID) %>% summarise(GS = sum(GS), QS = sum(QS), APPS = mean(dRA))
-  pitch <- arrange(pitch,-QS)
-  pitch$QSrate <- round(100*pitch$QS/pitch$GS,2)
+  pitch <- pitch %>% group_by(PID) %>% summarise(Year = season,
+                                                 GS = sum(GS),
+                                                 eQS = sum(QS),
+                                                 APPS = round(mean(dRA),3),
+                                                 FInn = sum(dRA)/rem[1,1])
+  pitch$FInn <- sign(pitch$FInn)*(floor(3*(abs(pitch$FInn)-floor(abs(pitch$FInn))))/10 + abs(floor(pitch$FInn)))
+  pitch <- arrange(pitch,-eQS)
+  pitch$eQSrate <- round(100*pitch$eQS/pitch$GS,2)
   
   # Output
   pitch

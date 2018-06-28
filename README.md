@@ -36,7 +36,7 @@ This can easily be represented with the following formula:
 
 `PPS = (LARA * IP) - (RA + ERC)`
 
-where `PPS` stands for "Pitching Performance Statistic", `LARA` is the league-average runs allowed per inning, `IP` is the innings pitched (rounding up if the starter can't finish an inning), `RA` is the runs the starter has allowed *the moment he leaves the game*, and `ERC` is the expected number of runs that we will charge to the started if he can't finish the inning. Essentially, the PPS is the difference between the number of runs a league average pitcher would allow in the same number of innings and the expected number of runs the starter allows.
+where `PPS` stands for "Pitching Performance Statistic", `LARA` is the league-average runs allowed per inning, `IP` is the innings pitched (rounding up if the starter can't finish an inning), `RA` is the runs the starter has allowed *the moment he leaves the game*, and `ERC` is the expected number of runs we charge the starter if he can't finish the inning. By definition, the PPS is the difference between the number of runs a league average pitcher would allow in the same number of innings and the expected number of runs the starter allows. Essentially, it's the number of runs you can expect to be leading by (or trailing by if `PPS` is negative) at the end of the inning in which the starter leaves the game.
 
 I say "expected number of runs the starter allows" to address one of the issues with the current Quality Start statistic. Right now, it is entirely possible for a starter to be in line for a Quality Start and have that taken away from him **without ever throwing a pitch**. This can happen when he leaves the game with runners still on base. Whenever the starter leaves with runners on base, his pitching line is still in jeopardy. If the reliever allows the inherited runners to score, the starter gets charged. Thus, one of my enhancements is taking the bullpen completely out of the equation. Instead, whenever the starter leaves the game with runners still on base, he is charged for the number of runs we would expect to score in the remainder of the inning (`ERC`). This `ERC` can easily be found using a Runs Expectancy Matrix.
 
@@ -50,7 +50,7 @@ What's a base-out state?
 
 A base-out state is a combination of the base occupancy and the number of outs at the beginning of each play. There are 8 different ways the bases can be occupied and there are 3 different out situations, so 8 x 3 = 24 base-out states. These 24 base-out states are the framework of the Runs Expectancy Matrix, as seen in the table below.
 
-|          | **0 Outs** | **1 Out** | **2 Outs**
+|          | **0 Out**  | **1 Out** | **2 Out**
 :---------:|:----------:|:---------:|:----------:
  **- - -** |            |           |
  **- - 1** |            |           |
@@ -63,9 +63,9 @@ A base-out state is a combination of the base occupancy and the number of outs a
 
 Just to make sure you fully understand this concept, let's run through a quick example on how a Runs Expectancy Matrix is built. We'll run through a hypothetical half-inning and develop a corresponding Runs Expectancy Matrix.
 
-Every inning starts the same way: 'bases empty, no one out', so we'll set up a counter in this state. The counter (denoted R) will keep track of every run scored for the remainder of the inning.
+Every inning starts the same way: 'bases empty, 0 out', so we'll set up a counter in this state. The counter (denoted R) will keep track of every run scored for the remainder of the inning.
 
-|          | **0 Outs** | **1 Out** | **2 Outs**
+|          | **0 Out**  | **1 Out** | **2 Out**
 :---------:|:----------:|:---------:|:----------:
  **- - -** |  R = 0     |           |
  **- - 1** |            |           |
@@ -76,9 +76,9 @@ Every inning starts the same way: 'bases empty, no one out', so we'll set up a c
  **3 2 -** |            |           |
  **3 2 1** |            |           |
  
-Suppose the inning begins with a lead-off single. The base-out state changes to 'man on first, no one out', so we'll add counter to this new state.
+Suppose the inning begins with a lead-off single. The base-out state changes to 'man on 1st, 0 out', so we'll add counter to this new state.
 
-|          | **0 Outs** | **1 Out** | **2 Outs**
+|          | **0 Out**  | **1 Out** | **2 Out**
 :---------:|:----------:|:---------:|:----------:
  **- - -** |  R = 0     |           |
  **- - 1** |  R = 0     |           |
@@ -89,9 +89,9 @@ Suppose the inning begins with a lead-off single. The base-out state changes to 
  **3 2 -** |            |           |
  **3 2 1** |            |           |
  
-Similarly, if the next batter strikes out, we transition to the 'man on first, 1 out' state and set up another counter.
+Similarly, if the next batter strikes out, we transition to the 'man on 1st, 1 out' state and set up another counter.
 
-|          | **0 Outs** | **1 Out** | **2 Outs**
+|          | **0 Out**  | **1 Out** | **2 Out**
 :---------:|:----------:|:---------:|:----------:
  **- - -** |  R = 0     |           |
  **- - 1** |  R = 0     |  R = 0    |
@@ -102,9 +102,9 @@ Similarly, if the next batter strikes out, we transition to the 'man on first, 1
  **3 2 -** |            |           |
  **3 2 1** |            |           |
 
-With a man on first and one out, the third batter blasts a 2-run homerun. The base-out state transitions to 'bases empty, 1 out', but more importantly, 2 runs scored in the process. Thus, for *each* of the previous counters we add 2 runs to the total. Note that we do not add 2 runs to the newly added counter.
+With a man on 1st and one out, the third batter blasts a 2-run homerun. The base-out state transitions to 'bases empty, 1 out', but more importantly, 2 runs scored in the process. Thus, for *each* of the previous counters we add 2 runs to the total. Note that we do not add 2 runs to the newly added counter.
 
-|          | **0 Outs** | **1 Out** | **2 Outs**
+|          | **0 Out**  | **1 Out** | **2 Out**
 :---------:|:----------:|:---------:|:----------:
  **- - -** |  R = 2     |  R = 0    |
  **- - 1** |  R = 2     |  R = 2    |
@@ -117,7 +117,7 @@ With a man on first and one out, the third batter blasts a 2-run homerun. The ba
  
 Suppose the fourth batter hits another homerun. Back to back, baby! As a result, we stay in the 'bases empty, 1 out' state and add another run. We set up a second counter in the same state and increment the other counters.
 
-|          | **0 Outs** | **1 Out**     | **2 Outs**
+|          | **0 Out**  | **1 Out**     | **2 Out**
 :---------:|:----------:|:-------------:|:----------:
  **- - -** |  R = 3     |  R = 1, R = 0 |
  **- - 1** |  R = 3     |  R = 3        |
@@ -127,3 +127,57 @@ Suppose the fourth batter hits another homerun. Back to back, baby! As a result,
  **3 - 1** |            |               |
  **3 2 -** |            |               |
  **3 2 1** |            |               |
+ 
+Similarly, if the fifth batter hits a single, the base-out state transitions to 'man on 1st, 1 out' and we add a second counter to that state.
+
+|          | **0 Out**  | **1 Out**     | **2 Out**
+:---------:|:----------:|:-------------:|:----------:
+ **- - -** |  R = 3     |  R = 1, R = 0 |
+ **- - 1** |  R = 3     |  R = 3, R = 0 |
+ **- 2 -** |            |               |
+ **- 2 1** |            |               |
+ **3 - -** |            |               |
+ **3 - 1** |            |               |
+ **3 2 -** |            |               |
+ **3 2 1** |            |               |
+ 
+No matter how complicated the inning may be, the procedure stays the same. After every play we add a counter to the respective base-out state (even if there is a counter already there) and increment all previous counters by the runs scored on the play. Each counter keeps track of the runs scored until the third out is made. Suppose the inning continues as follows:
+
+ground-rule double,
+
+|          | **0 Out**  | **1 Out**     | **2 Out**
+:---------:|:----------:|:-------------:|:----------:
+ **- - -** |  R = 3     |  R = 1, R = 0 |
+ **- - 1** |  R = 3     |  R = 3, R = 0 |
+ **- 2 -** |            |               |
+ **- 2 1** |            |               |
+ **3 - -** |            |               |
+ **3 - 1** |            |               |
+ **3 2 -** |            |  R = 0        |
+ **3 2 1** |            |               |
+ 
+sacrifice flyout, runner on 3rd scores,
+ 
+|          | **0 Out**  | **1 Out**     | **2 Out**
+:---------:|:----------:|:-------------:|:----------:
+ **- - -** |  R = 4     |  R = 2, R = 1 |
+ **- - 1** |  R = 4     |  R = 4, R = 1 |
+ **- 2 -** |            |               |  R = 0
+ **- 2 1** |            |               |
+ **3 - -** |            |               |
+ **3 - 1** |            |               |
+ **3 2 -** |            |  R = 1        |
+ **3 2 1** |            |               |
+ 
+and a strikeout to end the inning.
+
+|          | **0 Out**    | **1 Out**    | **2 Out**
+:---------:|:------------:|:------------:|:------------:
+ **- - -** | N = 1, T = 4 | N = 2, T = 3 |
+ **- - 1** | N = 1, T = 4 | N = 2, T = 5 |
+ **- 2 -** |              |              | N = 1, T = 0
+ **- 2 1** |              |              |
+ **3 - -** |              |              |
+ **3 - 1** |              |              |
+ **3 2 -** |              | N = 1, T = 1 |
+ **3 2 1** |              |              |
