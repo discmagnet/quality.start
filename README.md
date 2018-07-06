@@ -36,7 +36,7 @@ This can easily be represented with the following formula:
 
 `PPS = (LARA * IP) - (RA + ERC)`
 
-where `PPS` stands for "Pitching Performance Statistic", `LARA` is the league-average runs allowed per inning, `IP` is the innings pitched (rounding up if the starter can't finish an inning), `RA` is the runs the starter has allowed *the moment he leaves the game*, and `ERC` is the expected number of runs we charge the starter if he can't finish the inning. By definition, the PPS is the difference between the number of runs a league average pitcher would allow in the same number of innings and the expected number of runs the starter allows. Essentially, it's the number of runs you can expect to be leading by (or trailing by if `PPS` is negative) at the end of the inning in which the starter leaves the game.
+where `PPS` stands for "Pitching Performance Score", `LARA` is the league-average runs allowed per inning, `IP` is the innings pitched (rounding up if the starter can't finish an inning), `RA` is the runs the starter has allowed *the moment he leaves the game*, and `ERC` is the expected number of runs we charge the starter if he can't finish the inning. By definition, the PPS is the difference between the number of runs a league average pitcher would allow in the same number of innings and the expected number of runs the starter allows. Essentially, it's the number of runs you can expect to be leading by (or trailing by if `PPS` is negative) at the end of the inning in which the starter leaves the game.
 
 I say "expected number of runs the starter allows" to address one of the issues with the current Quality Start statistic. Right now, it is entirely possible for a starter to be in line for a Quality Start and have that taken away from him **without ever throwing a pitch**. This can happen when he leaves the game with runners still on base. Whenever the starter leaves with runners on base, his pitching line is still in jeopardy. If the reliever allows the inherited runners to score, the starter gets charged. Thus, one of my enhancements is taking the bullpen completely out of the equation. Instead, whenever the starter leaves the game with runners still on base, he is charged for the number of runs we would expect to score in the remainder of the inning (`ERC`). This `ERC` can easily be found using a Runs Expectancy Matrix.
 
@@ -181,3 +181,54 @@ and a strikeout to end the inning.
  **3 - 1** |              |              |
  **3 2 -** |              | N = 1, T = 1 |
  **3 2 1** |              |              |
+ 
+ ## Discussion
+ 
+I've just shown that my enhanced Quality Start is a better indicator of pitching performance than its counterpart, but it still doesn't tell the whole story... and my journey didn't end there. I remember compiling the numbers for the 2016 season and finding JA Happ at the top of the leaderboard in eQS. I *had* to tell my friends this odd discovery and they're like, "you're stat is broken".
+
+Yes and no.
+
+It really comes down to your definition of an 'elite' pitcher. I've found that eQS is good at measuring a pitcher's consistency; however, eQS doesn't really capture the dominance of a pitcher, which is how most people distinguish the 'good' from the 'elite'. As long as the PPS is positive, it doesn't matter by how much, the starter receives an eQS. Thus, in order to capture this 'dominance', I chose to look at the starter's Average Pitching Performance Score (APPS) over the course of the full season. This paints a picture much closer to what's already in our heads. Clearly, there are pitchers in the MLB more dominant than JA Happ, and APPS would tell us there are many. Here is a list of the Top 20 Pitchers in 2016 in APPS who had at least 20 starts.
+
+| Starting Pitcher |  GS  |  eQS  |  APPS
+:-----------------:|:----:|:-----:|:------:
+Clayton Kershaw    |  21  |  18   |  2.105
+Kyle Hendricks     |  30  |  24   |  1.399
+Jon Lester         |  32  |  24   |  1.356
+Johnny Cueto       |  32  |  23   |  1.159
+Max Scherzer       |  34  |  25   |  1.089
+Noah Syndergaard   |  30  |  19   |  1.056
+Justin Verlander   |  34  |  26   |  1.045
+Junior Guerra      |  20  |  12   |  1.021
+Jose Fernandez     |  29  |  19   |  1.005
+Madison Bumgarner  |  34  |  24   |  0.964
+Aaron Sanchez      |  30  |  23   |  0.931
+Jake Arrieta       |  31  |  18   |  0.923
+Tanner Roark       |  33  |  22   |  0.915
+Jacob DeGrom       |  24  |  15   |  0.889
+Masahiro Tanaka    |  31  |  21   |  0.867
+Carlos Martinez    |  31  |  21   |  0.862
+Jose Quintana      |  32  |  22   |  0.857
+Chris Sale         |  32  |  24   |  0.826
+JA Happ            |  32  |  26   |  0.823
+Julio Teheran      |  30  |  19   |  0.823
+
+If there's one thing you should take away from this, Clayton Kershaw was a **beast** when he wasn't injured. An APPS of 2.105 basically tells us that by the end of the inning Kershaw left the game, you could expect a 2.105 run lead. Ridiculous!
+
+> The Average Pitching Performance Score (APPS) is the average lead, or deficit, you can expect to have at the end of the inning the starter leaves the game.
+
+Surprisingly, Kershaw's 2016 season didn't even crack the Top Ten in the all-time list dating back to 1925. According to APPS, Pedro Martinez's 2000 season was the most dominant single-season performance in the history of baseball. Yeah, I don't think APPS is broken.
+
+| Starting Pitcher | Year |  GS  |  eQS  |  APPS
+:-----------------:|:----:|:----:|:-----:|:------:
+Pedro Martinez     | 2000 |  29  |  26   | 2.767
+Greg Maddux        | 1994 |  25  |  21   | 2.647
+Greg Maddux        | 1995 |  28  |  25   | 2.642
+Dwight Gooden      | 1985 |  35  |  30   | 2.341
+Jim Turner         | 1937 |  28  |  22   | 2.282
+Carl Hubbell       | 1936 |  26  |  21   | 2.217
+Roger Clemens      | 1997 |  34  |  27   | 2.204
+Lefty Grove        | 1931 |  30  |  25   | 2.194
+Kevin Brown        | 1996 |  32  |  27   | 2.192
+Hal Schumacher     | 1933 |  27  |  23   | 2.179
+
