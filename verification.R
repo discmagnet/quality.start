@@ -87,3 +87,56 @@ eQS17_name_qs_fan <- inner_join(eQS17_name_qs,subset(data_fangraphs,Season==2017
 # Merge & Analyze Data ----
 eQS_all <- bind_rows(eQS11_name_qs_fan,eQS12_name_qs_fan,eQS13_name_qs_fan,eQS14_name_qs_fan,
              eQS15_name_qs_fan,eQS16_name_qs_fan,eQS17_name_qs_fan)
+
+library(ggplot2)
+plot1 <- ggplot(eQS_all) + 
+  geom_point(aes(x = eQSrate, y = ERA)) + 
+  geom_smooth(aes(x = eQSrate, y = ERA), se = FALSE) +
+  labs(title = "Relationship between ERA and eQS Conversion Rate",
+       subtitle = "with locally weighted scatterplot smoothing (LOESS)",
+       x = "Enhanced Quality Start Conversion Rate (%)",
+       y = "Earned Run Average") +
+  theme_gray()
+
+plot2 <- ggplot(eQS_all) + 
+  geom_point(aes(x = QS/GS.x, y = ERA)) + 
+  geom_smooth(aes(x = QS/GS.x, y = ERA), se = FALSE) +
+  labs(title = "Relationship between ERA and QS Conversion Rate",
+       subtitle = "with locally weighted scatterplot smoothing (LOESS)",
+       x = "Quality Start Conversion Rate (%)",
+       y = "Earned Run Average") +
+  theme_gray()
+
+source('~/WORKING_DIRECTORIES/quality.start/user_defined_functions/outs2dec.R')
+eQS_all2 <- eQS_all %>% mutate(IPthresh = as.integer(outs2dec(IP)/GS.x > 6))
+
+plot3 <- ggplot(eQS_all2) + 
+  geom_point(aes(x = eQSrate, y = ERA, color = factor(IPthresh), alpha = 0.8)) + 
+  geom_smooth(aes(x = eQSrate, y = ERA), se = FALSE) +
+  labs(title = "Relationship between ERA and eQS Conversion Rate",
+       subtitle = "with locally weighted scatterplot smoothing (LOESS)",
+       x = "Enhanced Quality Start Conversion Rate (%)",
+       y = "Earned Run Average") +
+  guides(alpha = "none", color = "legend") +
+  scale_color_discrete(name = "Average IP", labels = c("Under 6","At least 6")) + 
+  theme_gray()
+
+plot4 <- ggplot(eQS_all2) + 
+  geom_point(aes(x = QS/GS.x, y = ERA, color = factor(IPthresh), alpha = 0.8)) + 
+  geom_smooth(aes(x = QS/GS.x, y = ERA), se = FALSE) +
+  labs(title = "Relationship between ERA and QS Conversion Rate",
+       subtitle = "with locally weighted scatterplot smoothing (LOESS)",
+       x = "Quality Start Conversion Rate (%)",
+       y = "Earned Run Average") +
+  guides(alpha = "none", color = "legend") +
+  scale_color_discrete(name = "Average IP", labels = c("Under 6","At least 6")) + 
+  theme_gray()
+
+plot5 <- ggplot(eQS_all) + 
+  geom_point(aes(x = APPS, y = ERA)) + 
+  geom_smooth(aes(x = APPS, y = ERA), se = FALSE) +
+  labs(title = "Relationship between ERA and APPS",
+       subtitle = "with locally weighted scatterplot smoothing (LOESS)",
+       x = "Average Pitching Performance Score",
+       y = "Earned Run Average") +
+  theme_gray()
