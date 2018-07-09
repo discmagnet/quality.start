@@ -12,9 +12,9 @@ Here's a hint. Their records were 6-17 and 13-5, respectively.
 
 I'm guessing that with this information you would be comfortable answering Drew Hutchison.  
 
-Here's another hint. Their ERAs were 3.02 and 5.57, respectively.  
+Here's another hint. Their ERAs were 3.02 and 5.57, respectively. Yes, respectively. Same order.
 
-Wait... What?! I'm guessing now you may be reconsidering.  
+Wait, what? I'm guessing now you may be reconsidering.  
 
 Here's my point.  
 
@@ -182,7 +182,7 @@ and a strikeout to end the inning.
  **3 2 -** |            |  R = 1        |
  **3 2 1** |            |               |
 
-...
+With this data, we can build a rudimentary runs expectancy matrix. The run expectancy for each state is simply the ratio of the total runs scored (T = sum of counters) and the number of times we reached that state (N = number of counters), T/N. 
 
 |          | **0 Out**    | **1 Out**    | **2 Out**
 :---------:|:------------:|:------------:|:------------:
@@ -195,13 +195,47 @@ and a strikeout to end the inning.
  **3 2 -** |              | N = 1, T = 1 |
  **3 2 1** |              |              |
  
- ## Discussion
+In this particular example, we didn't have data for every state, so there will be a lot of blank spaces. This runs expectancy matrix was built off of only 8 plays, so it isn't very meaningful. Over the course of an entire MLB regular season, there are over 100,000 plays that take place, more than enough to fill every possible base-out state with a meaningful run expectancy. 
  
-I've just shown that my enhanced Quality Start is a better indicator of pitching performance than its counterpart, but it still doesn't tell the whole story... and my journey didn't end there. I remember compiling the numbers for the 2016 season and finding JA Happ at the top of the leaderboard in eQS. I *had* to tell my friends this odd discovery and they're like, "you're stat is broken".
+|          | **0 Out**    | **1 Out**    | **2 Out**
+:---------:|:------------:|:------------:|:------------:
+ **- - -** |  4.000       |  1.500       |
+ **- - 1** |  4.000       |  2.500       |
+ **- 2 -** |              |              |  0.000
+ **- 2 1** |              |              |
+ **3 - -** |              |              |
+ **3 - 1** |              |              |
+ **3 2 -** |              |  1.000       |
+ **3 2 1** |              |              |
+ 
+Making interpretations from this example would be a terrible idea in real life, but that's what we're going to do to explore the concept. Suppose someone who has never watched a game of baseball just happened to watch the top of the inning unfold. If they decided to stick around for bottom of the inning, they would expect 4.000 runs to score since the inning starts off in the 'bases empty, 0 out' state. This is exactly what I'm doing to determine `LARA`. If the first batter strikes out and the person decides to leave, they would expect the home team to score 1.500 runs in the remainder of the inning since they are leaving with the game in the 'bases empty, 1 out' state. This is exactly what I'm doing to determine `ERC`.
+
+Here's the runs expectancy matrix based on the 2016 season.
+
+|          | **0 Out**    | **1 Out**    | **2 Out**
+:---------:|:------------:|:------------:|:------------:
+ **- - -** |  0.498       |  0.268       |  0.106
+ **- - 1** |  0.858       |  0.512       |  0.220
+ **- 2 -** |  1.133       |  0.673       |  0.312
+ **- 2 1** |  1.445       |  0.921       |  0.414
+ **3 - -** |  1.347       |  0.937       |  0.372
+ **3 - 1** |  1.723       |  1.196       |  0.478
+ **3 2 -** |  1.929       |  1.358       |  0.548
+ **3 2 1** |  2.106       |  1.537       |  0.695
+ 
+Suppose a starter in 2016 pitches into the 7th inning before being pulled with 1 out, runners on 1st and 2nd, and having allowed 2 runs. Based on this Runs Expectancy Matrix, `LARA` is 0.498 runs per inning, so we would expect a league average pitcher to allow 3.486 runs in 7 full innings of work. `ERC` is 0.921 runs, so the starter is charged a total of 2.921 runs through 7 full innings. Since 3.486 - 2.921 = 0.565 > 0, the starter is credited with an eQS and a `PPS` of 0.565 for this game.
+
+Using the formula for PPS and the above runs expectancy matrix, we can even work backwards to determine the maximum number of runs a pitcher can allow and still be awarded an eQS. The table below shows this for every possible situation a pitcher can leave the game in through the first 9 innings. Note that any part in black represents a situation that is impossible to achieve an eQS.
+
+![](eQStable.png)
+ 
+## Discussion
+ 
+I've just shown that my enhanced Quality Start is a better indicator of pitching performance than its counterpart, but it still doesn't tell the whole story... and my journey didn't end there. I remember compiling the numbers right after the 2016 season (yeah, I've been working on this for a while) and finding JA Happ at the top of the leaderboard in eQS. I immediately told my friends about this and they're like, "you're stat is broken".
 
 Yes and no.
 
-It really comes down to your definition of an 'elite' pitcher. I've found that eQS is good at measuring a pitcher's consistency; however, eQS doesn't really capture the dominance of a pitcher, which is how most people distinguish the 'good' from the 'elite'. As long as the PPS is positive, it doesn't matter by how much, the starter receives an eQS. Thus, in order to capture this 'dominance', I chose to look at the starter's Average Pitching Performance Score (APPS) over the course of the full season. This paints a picture much closer to what's already in our heads. Clearly, there are pitchers in the MLB more dominant than JA Happ, and APPS would tell us there are many. Here is a list of the Top 20 Pitchers in 2016 in APPS who had at least 20 starts.
+It really comes down to your definition of an 'elite' pitcher. I've found that eQS is good at evaluating a pitcher's consistency; however, eQS doesn't really capture the 'dominance' of a pitcher, which is how most people distinguish the 'good' from the 'elite'. As long as the PPS is positive, it doesn't matter by how much, the starter receives an eQS. Thus, in order to capture this 'dominance', I chose to look at the starter's Average Pitching Performance Score (APPS) over the course of the full season. This paints a picture much closer to what's already in our heads. Clearly, there are pitchers in the MLB more dominant than JA Happ, and APPS would tell us there are many. Here is a list of the Top 20 Pitchers in 2016 in APPS who had at least 20 starts.
 
 | Starting Pitcher |  GS  |  eQS  |  APPS
 :-----------------:|:----:|:-----:|:------:
@@ -228,7 +262,7 @@ Julio Teheran      |  30  |  19   |  0.823
 
 If there's one thing you should take away from this, Clayton Kershaw was a **beast** when he wasn't injured. An APPS of 2.105 basically tells us that by the end of the inning Kershaw left the game, you could expect a 2.105 run lead. Ridiculous!
 
-> The Average Pitching Performance Score (APPS) is the average lead, or deficit, you can expect to have at the end of the inning the starter leaves the game.
+> The Average Pitching Performance Score (APPS) is the average lead, or deficit, you can expect to have at the end of the inning of which the starter leaves the game.
 
 Surprisingly, Kershaw's 2016 season didn't even crack the Top Ten in the all-time list dating back to 1925. According to APPS, Pedro Martinez's 2000 season was the most dominant single-season performance in the history of baseball. Yeah, I don't think APPS is broken.
 
