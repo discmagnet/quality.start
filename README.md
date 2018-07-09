@@ -76,7 +76,7 @@ Every inning starts the same way: 'bases empty, 0 out', so we'll set up a counte
  **3 2 -** |            |           |
  **3 2 1** |            |           |
  
-Suppose the inning begins with a lead-off single. The base-out state changes to 'man on 1st, 0 out', so we'll add counter to this new state.
+Suppose the inning begins with a lead-off single. The base-out state changes to 'man on 1st, 0 out', so we'll add a counter to this new state.
 
 |          | **0 Out**  | **1 Out** | **2 Out**
 :---------:|:----------:|:---------:|:----------:
@@ -208,7 +208,7 @@ In this particular example, we didn't have data for every state, so there will b
  **3 2 -** |              |  1.000       |
  **3 2 1** |              |              |
  
-Making interpretations from this example would be a terrible idea in real life, but that's what we're going to do to explore the concept. Suppose someone who has never watched a game of baseball just happened to watch the top of the inning unfold. If they decided to stick around for bottom of the inning, they would expect 4.000 runs to score since the inning starts off in the 'bases empty, 0 out' state. This is exactly what I'm doing to determine `LARA`. If the first batter strikes out and the person decides to leave, they would expect the home team to score 1.500 runs in the remainder of the inning since they are leaving with the game in the 'bases empty, 1 out' state. This is exactly what I'm doing to determine `ERC`.
+Making interpretations from this example would be a terrible idea in real life, but that's what we're going to do to explore the concept. Suppose someone who has never watched a game of baseball just happened to watch the top of the inning unfold. If they decided to stick around for the bottom of the inning, they would expect 4.000 runs to score since the inning starts off in the 'bases empty, 0 out' state. This is exactly what I'm doing to determine `LARA`. If the first batter strikes out and the person decides to leave, they would expect the home team to score 1.500 runs in the remainder of the inning since they are leaving with the game in the 'bases empty, 1 out' state. This is exactly what I'm doing to determine `ERC`.
 
 Here's the runs expectancy matrix based on the 2016 season.
 
@@ -228,10 +228,30 @@ Suppose a starter in 2016 pitches into the 7th inning before being pulled with 1
 Using the formula for PPS and the above runs expectancy matrix, we can even work backwards to determine the maximum number of runs a pitcher can allow and still be awarded an eQS. The table below shows this for every possible situation a pitcher can leave the game in through the first 9 innings. Note that any part in black represents a situation that is impossible to achieve an eQS.
 
 ![](eQStable.png)
- 
+
+### Is eQS better?
+
+If we make the assumption ERA is the gold standard for evaluating pitching performance, there is evidence that incorporating run expectancy into our criteria makes the Quality Start a better indicator of pitching performance. A scatter plot of the ERA and QS Conversion Rates of 537 qualifying single-season pitching performances from 2011 to 2017 is shown below (using the old criteria to be clear). When we run the linear regression, we find it has an R-squared of 0.588. This tells us about 59% of the variation in ERA is explained by QS Conversion Rate without incorporating run expectancy.
+
+![](plot_ERA_QS.jpeg)
+
+Now take a look at the scatter plot of ERA and eQS Conversion Rate, the 'enhanced' Quality Start Conversion Rate. Right away you'll notice it passes the eye test. Clearly, there is a stronger linear relationship between ERA and the conversion rate when run expectancy is incorporated. After running another linear regression, we find it has an R-squared of 0.670. This tells us 67% of the variation in ERA is explained by eQS Conversion Rate. That's an 8% increase!
+
+![](plot_ERA_eQS.jpeg)
+
+Where exactly is this 8% coming from? Why does incorporating run expectancy give us an improvement? The answer lies in the fact there is no minimum inning requirement in this new criteria. If we analyze the scatter plots even further, you'll notice that much of the improvement lies with the pitchers with lower conversion rates. These same pitchers thend to pitch less deep into games. Take a look at the first scatter plot again, but this time we'll distinguish those who averaged at least 6 innings per start. Although there is a good amount of overlap, it's easy to see much of the red lies to the left and much of the blue lies to the right.
+
+Among those who averaged at least 6 innings per start (blue), there appears to be a strong linear relationship between ERA and conversion rate, which makes sense. For this group of pitchers, being awarded a QS *mainly* depends on how many earned runs they give up, which directly relates to performance. On the other hand, among those who averaged less than 6 innings per start (red), there is a weaker relationship between ERA and conversion rate, which also makes sense! For this group of pitchers, being awarded a QS not only depends on how many earned runs they give up, it also *commonly* depends on whether they reach the 6 inning minimum, which doesn't always relate to performance (e.g. pitch count, injury risk, pulled for pinch hitter, etc.).
+
+![](plot_ERA_QS_2.jpeg)
+
+By incorporating run expectancy, we put both groups of pitchers onto a level playing field. Take a look at the second scatter plot with both groups distinguished. Notice now that *both* groups have strong linear relationships between ERA and conversion rate. For pitchers who average at least 6 innings, the correlation between ERA and conversion rate increases from -0.766 to -0.806 (not a huge difference), but for pitchers who don't average 6 innings, the correlation increases from -0.395 to -0.674! Considering nearly a third (174/537) of single-season pitching performances fell into the 'red' group, incorporating run expectancy into our criteria for 'quality' starts just makes sense.
+
+![](plot_ERA_eQS_2.jpeg)
+
 ## Discussion
  
-I've just shown that my enhanced Quality Start is a better indicator of pitching performance than its counterpart, but it still doesn't tell the whole story... and my journey didn't end there. I remember compiling the numbers right after the 2016 season (yeah, I've been working on this for a while) and finding JA Happ at the top of the leaderboard in eQS. I immediately told my friends about this and they're like, "you're stat is broken".
+I may have shown the enhanced Quality Start is a better indicator of pitching performance than its counterpart, but it still doesn't tell the whole story... and my journey didn't end there. I remember compiling the numbers right after the 2016 season (yeah, I've been working on this for a while) and finding JA Happ at the top of the leaderboard in eQS. I immediately told my friends about this and they're like, "you're stat is broken".
 
 Yes and no.
 
