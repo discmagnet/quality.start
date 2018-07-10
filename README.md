@@ -14,7 +14,7 @@ I'm guessing that with this information you would be comfortable answering Drew 
 
 Here's another hint. Their ERAs were 3.02 and 5.57, respectively. Yes, respectively. Same order.
 
-Wait, what? I'm guessing now you may be reconsidering.  
+I'm guessing now you may be reconsidering.
 
 Here's my point.  
 
@@ -239,7 +239,7 @@ Now take a look at the scatter plot of ERA and eQS Conversion Rate, the 'enhance
 
 ![](plot_ERA_eQS.jpeg)
 
-Where exactly is this 8% coming from? Why does incorporating run expectancy give us an improvement? The answer lies in the fact there is no minimum inning requirement in this new criteria. If we analyze the scatter plots even further, you'll notice that much of the improvement lies with the pitchers with lower conversion rates. These same pitchers thend to pitch less deep into games. Take a look at the first scatter plot again, but this time we'll distinguish those who averaged at least 6 innings per start. Although there is a good amount of overlap, it's easy to see much of the red lies to the left and much of the blue lies to the right.
+Where exactly is this 8% coming from? Why does incorporating run expectancy give us an improvement? The answer lies in the fact there is no minimum inning requirement in this new criteria. If we analyze the scatter plots even further, you'll notice that much of the improvement lies with the pitchers with lower conversion rates. These same pitchers tend to pitch less deep into games. Take a look at the first scatter plot again, but this time we'll distinguish those who averaged at least 6 innings per start. Although there is a good amount of overlap, it's easy to see much of the red lies to the left and much of the blue lies to the right.
 
 Among those who averaged at least 6 innings per start (blue), there appears to be a strong linear relationship between ERA and conversion rate, which makes sense. For this group of pitchers, being awarded a QS *mainly* depends on how many earned runs they give up, which directly relates to performance. On the other hand, among those who averaged less than 6 innings per start (red), there is a weaker relationship between ERA and conversion rate, which also makes sense! For this group of pitchers, being awarded a QS not only depends on how many earned runs they give up, it also *commonly* depends on whether they reach the 6 inning minimum, which doesn't always relate to performance (e.g. pitch count, injury risk, pulled for pinch hitter, etc.).
 
@@ -298,4 +298,12 @@ Roger Clemens      | 1997 |  34  |  27   | 2.204
 Lefty Grove        | 1931 |  30  |  25   | 2.194
 Kevin Brown        | 1996 |  32  |  27   | 2.192
 Hal Schumacher     | 1933 |  27  |  23   | 2.179
+
+But the fun doesn't end there! With APPS we quantified pitching performance in terms of runs. We also know the average number of runs that will score in an inning, so we can convert APPS into a metric that's in terms of innings!
+
+I like to call it Free Innings (FInn). If you take a starter's PPS from a single game and divide it by `LARA`, you get the additional innings the starter gives you 'for free' compared to the number of innings a league average pitcher would pitch to give up the same number of runs. For example, if a starter pitches a complete game shutout, he would earn 9 Free Innings. A league average pitcher would have to pitch 0 innings to give up 0 runs, so the starter went 9 innings longer than what a league average pitcher would have to pitch to give up 0 runs. You could also do the math; he would have a PPS of 9 times `LARA` for that game, and (9*`LARA`)/`LARA` is 9 FInn.
+
+> Free Innings (FInn) are the additional scoreless innings a starting pitcher gives his team compared to the number of innings a league average starter would pitch to give up the same number of runs.
+
+FInn is a bit more intriguing to me than APPS because Free Innings is a counting statistic that accumulates over the course of the season rather than a ratio statistic. It could easily be used as another way to measure a pitcher's value. It gets at the quality *as well as the quantity* behind a pitcher's performance.
 
