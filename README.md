@@ -284,6 +284,8 @@ If there's one thing you should take away from this, Clayton Kershaw was a **bea
 
 > The Average Pitching Performance Score (APPS) is the average lead, or deficit, you can expect to have at the end of the inning of which the starter leaves the game.
 
+![](plot_ERA_APPS.jpeg)
+
 Surprisingly, Kershaw's 2016 season didn't even crack the Top Ten in the all-time list dating back to 1925. According to APPS, Pedro Martinez's 2000 season was the most dominant single-season performance in the history of baseball. Yeah, I don't think APPS is broken.
 
 | Starting Pitcher | Year |  GS  |  eQS  |  APPS
@@ -307,3 +309,6 @@ I like to call it Free Innings (FInn). If you take a starter's PPS from a single
 
 FInn is a bit more intriguing to me than APPS because Free Innings is a counting statistic that accumulates over the course of the season rather than a ratio statistic. It could easily be used as another way to measure a pitcher's value. It gets at the quality *as well as the quantity* behind a pitcher's performance.
 
+![](plot_WAR_FInn.jpeg)
+
+Check out the all-time leaderboard for FInn
