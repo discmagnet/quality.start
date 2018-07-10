@@ -249,9 +249,9 @@ By incorporating run expectancy, we put both groups of pitchers onto a level pla
 
 ![](plot_ERA_eQS_2.jpeg)
 
-I've only talked about ERA so far, but I also examined correlations with other pitching performance statistics such as Opponent Batting Average (AVG), WHIP, WAR, xFIP, WPA, RE24, K/9, and Winning Percentage (W%). In most cases, these statistics correlated better with eQS (bolded).
+I've only talked about ERA so far, but I also examined correlations with other pitching performance statistics such as Opponent Batting Average (AVG), WHIP, WAR, xFIP, WPA, RE24, K/9, and Winning Percentage (W%). In most cases, these statistics correlated better with the eQS Conversion Rate(bolded).
 
-| Statistic | Correlation w/ QS | Correlation w/ eQS |
+| Statistic | Correlation w/ QS Rate | Correlation w/ eQS Rate |
 :----------:|:-----------------:|:-------------------:
 **ERA** | **-0.767** | **-0.819**
 **AVG** | **-0.572** | **-0.656**
@@ -338,7 +338,7 @@ Did you notice #10? Ridiculous!
 
 ## Summary
 
-IMO, Clayton Kershaw is the best pitcher in the history of baseball.
+Clayton Kershaw is awesome.
 
 The **"enhanced" Quality Start** tells us whether or not a starting pitcher pitched better than league average. This modified approach incorporates run expectancy and takes away the minimum inning requirement. As a result, this improves the correlation between ERA and "quality" start conversion rates, especially for starters that don't pitch deep into ballgames.
 
