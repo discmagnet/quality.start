@@ -142,6 +142,15 @@ plot5 <- ggplot(eQS_all) +
        x = "Average Pitching Performance Score",
        y = "Earned Run Average") +
   theme_gray()
+# WAR versus FInn
+plot6 <- ggplot(eQS_all) + 
+  geom_point(aes(x = FInn, y = WAR)) + 
+  geom_smooth(aes(x = FInn, y = WAR), se = FALSE) +
+  labs(title = "Relationship between WAR and FInn",
+       subtitle = "with locally weighted scatterplot smoothing (LOESS)",
+       x = "Free Innings",
+       y = "Wins Above Replacement") +
+  theme_gray()
 
 # R-squared values between eQSrate and various pitching statistics
 cor(eQS_all$eQSrate, eQS_all$ERA)^2                                # 0.670
