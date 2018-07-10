@@ -63,7 +63,7 @@ A base-out state is a combination of the base occupancy and the number of outs a
 
 Just to make sure you fully understand this concept, let's run through a quick example on how a Runs Expectancy Matrix is built. We'll run through a hypothetical half-inning and develop a corresponding Runs Expectancy Matrix.
 
-Every inning starts the same way: 'bases empty, 0 out', so we'll set up a counter in this state. The counter (denoted R) will keep track of every run scored for the remainder of the inning.
+Every inning starts the same way: "bases empty, 0 out", so we'll set up a counter in this state. The counter (denoted R) will keep track of every run scored for the remainder of the inning.
 
 |          | **0 Out**  | **1 Out** | **2 Out**
 :---------:|:----------:|:---------:|:----------:
@@ -76,7 +76,7 @@ Every inning starts the same way: 'bases empty, 0 out', so we'll set up a counte
  **3 2 -** |            |           |
  **3 2 1** |            |           |
  
-Suppose the inning begins with a lead-off single. The base-out state changes to 'man on 1st, 0 out', so we'll add a counter to this new state.
+Suppose the inning begins with a lead-off single. The base-out state changes to "man on 1st, 0 out", so we'll add a counter to this new state.
 
 |          | **0 Out**  | **1 Out** | **2 Out**
 :---------:|:----------:|:---------:|:----------:
@@ -89,7 +89,7 @@ Suppose the inning begins with a lead-off single. The base-out state changes to 
  **3 2 -** |            |           |
  **3 2 1** |            |           |
  
-Similarly, if the next batter strikes out, we transition to the 'man on 1st, 1 out' state and set up another counter.
+Similarly, if the next batter strikes out, we transition to the "man on 1st, 1 out" state and set up another counter.
 
 |          | **0 Out**  | **1 Out** | **2 Out**
 :---------:|:----------:|:---------:|:----------:
@@ -102,7 +102,7 @@ Similarly, if the next batter strikes out, we transition to the 'man on 1st, 1 o
  **3 2 -** |            |           |
  **3 2 1** |            |           |
 
-With a man on 1st and one out, the third batter blasts a 2-run homerun. The base-out state transitions to 'bases empty, 1 out', but more importantly, 2 runs scored in the process. Thus, for *each* of the previous counters we add 2 runs to the total. Note that we do not add 2 runs to the newly added counter.
+With a man on 1st and one out, the third batter blasts a 2-run homerun. The base-out state transitions to "bases empty, 1 out", but more importantly, 2 runs score in the process. Thus, for *each* of the previous counters we add 2 runs to the total. Note that we do not add 2 runs to the counter we just added.
 
 |          | **0 Out**  | **1 Out** | **2 Out**
 :---------:|:----------:|:---------:|:----------:
@@ -115,7 +115,7 @@ With a man on 1st and one out, the third batter blasts a 2-run homerun. The base
  **3 2 -** |            |           |
  **3 2 1** |            |           |
  
-Suppose the fourth batter hits another homerun. Back to back, baby! As a result, we stay in the 'bases empty, 1 out' state and add another run. We set up a second counter in the same state and increment the other counters.
+Suppose the fourth batter hits another homerun. Back to back, baby! As a result, we stay in the "bases empty, 1 out" state and add another run. We set up a second counter in the same state and increment the other counters.
 
 |          | **0 Out**  | **1 Out**     | **2 Out**
 :---------:|:----------:|:-------------:|:----------:
@@ -128,7 +128,7 @@ Suppose the fourth batter hits another homerun. Back to back, baby! As a result,
  **3 2 -** |            |               |
  **3 2 1** |            |               |
  
-Similarly, if the fifth batter hits a single, the base-out state transitions to 'man on 1st, 1 out' and we add a second counter to that state.
+Similarly, if the fifth batter hits a single, the base-out state transitions to "man on 1st, 1 out" and we add a second counter to that state.
 
 |          | **0 Out**  | **1 Out**     | **2 Out**
 :---------:|:----------:|:-------------:|:----------:
@@ -182,7 +182,7 @@ and a strikeout to end the inning.
  **3 2 -** |            |  R = 1        |
  **3 2 1** |            |               |
 
-With this data, we can build a rudimentary runs expectancy matrix. The run expectancy for each state is simply the ratio of the total runs scored (T = sum of counters) and the number of times we reached that state (N = number of counters), T/N. 
+With this data, we can build a rudimentary Runs Expectancy Matrix. The run expectancy for each state is simply the ratio of the total runs scored (T = sum of counters) and the number of times we reached that state (N = number of counters), T/N. 
 
 |          | **0 Out**    | **1 Out**    | **2 Out**
 :---------:|:------------:|:------------:|:------------:
