@@ -301,20 +301,47 @@ Hal Schumacher     | 1933 |  27  |  23   | 2.179
 
 The fun doesn't end there! With APPS we quantified pitching performance *in terms of runs*. We also know the average runs that score per inning, so we can create a new metric that's *in terms of innings*!
 
-I like to call it Free Innings (FInn). If you take a starter's PPS from a single game and divide it by `LARA`, you get the additional innings the starter gives you 'for free' compared to the number of innings a league average pitcher would pitch to give up the same number of runs. For example, if a starter pitches a complete game shutout, he would earn 9 Free Innings. A league average pitcher would have to pitch 0 innings to give up 0 runs, so the starter went 9 innings longer than what a league average pitcher would have to pitch to give up 0 runs. You could also do the math; he would have a PPS of 9 times `LARA` for that game, and (9*`LARA`)/`LARA` is 9 FInn.
+I like to call it "Free Innings".
 
-> Free Innings (FInn) are the additional scoreless innings a starting pitcher gives his team compared to the number of innings a league average starter would pitch to give up the same number of runs.
+In baseball terms again, Free Innings (FInn) are the additional scoreless innings a starting pitcher gives, or costs, his team compared to the number of innings a league average starter would have to pitch to allow the same number of runs. This can be determined by simply dividing the starter's PPS by the correct `LARA`. For example, if a starter pitches a complete game shutout, he would earn 9 FInn. A league average pitcher would have to pitch 0 innings to give up 0 runs, so the starter went 9 innings longer than what a league average pitcher would have to pitch to give up 0 runs. You could also do the math; he would have a PPS of 9 times `LARA` for that game, and (9*`LARA`)/`LARA` is 9 FInn.
 
-FInn is a bit more intriguing to me than APPS because Free Innings is a counting statistic that accumulates over the course of the season rather than a ratio statistic. It could easily be used as another way to measure a pitcher's value. It gets at the quality *as well as the quantity* behind a pitcher's performance.
+FInn is a bit more intriguing to me than APPS because Free Innings is a *counting statistic* that accumulates over the course of the season rather than a ratio statistic. It could easily be used as another way to measure a pitcher's value. It gets at the "quality" **as well as the "quantity"** behind a pitcher's performance. Here are the Top Ten Pitchers in Career FInn since 1925:
 
-![](plot_WAR_FInn.jpeg)
+| Starting Pitcher | Seasons |  GS  |  eQS  |  FInn
+:-----------------:|:-------:|:----:|:-----:|:------:
+Roger Clemens      |  24     |  707 |  486  | 1242.0
+Greg Maddux        |  23     |  740 |  494  | 1143.1
+Tom Seaver         |  20     |  647 |  426  | 1099.2
+Warren Spahn       |  21     |  633 |  419  | 1054.2
+Jim Palmer         |  19     |  521 |  332  | 907.1
+Pedro Martinez     |  18     |  409 |  291  | 897.0
+Randy Johnson      |  22     |  603 |  407  | 835.2
+Whitey Ford        |  16     |  437 |  294  | 822.0
+Lefty Grove        |  17     |  396 |  268  | 793.1
+Clayton Kershaw    |  10     |  290 |  227  | 792.0
 
-Check out the all-time leaderboard for FInn ...
+Did you notice #10? Ridiculous!
 
 ## Summary
 
-The **"enhanced" Quality Start** tells us whether or not a starting pitcher pitched better than league average. This modified approach takes away the minimum inning requirement.
+The **"enhanced" Quality Start** tells us whether or not a starting pitcher pitched better than league average. This modified approach incorporates run expectancy and takes away the minimum inning requirement. As a result, this improves the correlation between ERA and "quality" start conversion rates, especially for starters that don't pitch deep into ballgames. I've only talked about ERA so far, but I also examined correlations with other pitching performance statistics such as Opponent Batting Average (AVG), WHIP, WAR, xFIP, WPA, RE24, K/9, and Winning Percentage (W%). In most cases, these statistics correlated better with eQS (bolded).
+
+| Statistic | Correlation w/ QS | Correlation w/ eQS |
+:----------:|:-----------------:|:-------------------:
+**ERA | -0.767 | -0.819**
+**AVG | -0.572 | -0.656**
+**WHIP | -0.708 | -0.731**
+WAR | 0.676 | 0.663
+xFIP | -0.549 | -0.477
+**WPA | 0.734 | 0.840**
+**RE24 | 0.738 | 0.850**
+**K/9 | 0.294 | 0.388**
+**W% | 0.532 | 0.591**
 
 The **Average Pitching Performance Score** tells us the average lead, or deficit, you can expect to have at the end of the inning of which the starter leaves the game.
 
 **Free Innings** are the additional scoreless innings a starting pitcher gives, or costs, his team compared to the number of innings a league average starter would have to pitch to allow the same number of runs.
+
+IMO, Clayton Kershaw is the best pitcher in the history of baseball!
+
+All of my supporting R code can be found on my GitHub page: https://github.com/discmagnet/quality.start
