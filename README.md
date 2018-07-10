@@ -245,7 +245,7 @@ Where exactly is this 8% coming from? Why does incorporating run expectancy give
 
 Among those who averaged at least 6 innings per start (blue), there appears to be a strong linear relationship between ERA and conversion rate, which makes sense. For this group of pitchers, being awarded a QS *mainly* depends on how many earned runs they give up, which directly relates to performance. On the other hand, among those who averaged less than 6 innings per start (red), there is a weaker relationship between ERA and conversion rate, which also makes sense! For this group of pitchers, being awarded a QS not only depends on how many earned runs they give up, it also *commonly* depends on whether they reach the 6 inning minimum, which doesn't always relate to performance (e.g. pitch count, injury risk, pulled for pinch hitter, etc.).
 
-By incorporating run expectancy, we put both groups of pitchers onto a level playing field. Take a look at the second scatter plot with both groups distinguished. Notice now that *both* groups have strong linear relationships between ERA and conversion rate. For pitchers who average at least 6 innings, the correlation between ERA and conversion rate increases from -0.766 to -0.806 (not a huge difference), but for pitchers who don't average 6 innings, the correlation increases from -0.395 to -0.674! Considering nearly a third (174/537) of single-season pitching performances fell into the latter group, incorporating run expectancy into our "quality" start metric just makes sense.
+By incorporating run expectancy, we put both groups of pitchers onto a level playing field. Take a look at the second scatter plot with both groups distinguished. Notice now that *both* groups have strong linear relationships between ERA and conversion rate. For pitchers who average at least 6 innings, the correlation between ERA and conversion rate increases from -0.766 to -0.806 (not a huge difference), but for pitchers who don't average 6 innings, the correlation increases from -0.395 to -0.674! Considering nearly a third (174/537) of single-season pitching performances fell into this latter group, incorporating run expectancy just makes sense.
 
 ![](plot_ERA_eQS_2.jpeg)
 
@@ -255,7 +255,9 @@ I may have shown the "enhanced" Quality Start is a better indicator of pitching 
 
 Yes and no.
 
-It really comes down to your definition of an 'elite' pitcher. I've found that eQS is good at evaluating a pitcher's consistency; however, eQS doesn't really capture the 'dominance' of a pitcher, which is how most people distinguish the 'good' from the 'elite'. As long as the PPS is positive, it doesn't matter by how much, the starter receives an eQS. Thus, in order to capture this 'dominance', I chose to look at the starter's Average Pitching Performance Score (APPS) over the course of the full season. This paints a picture much closer to what's already in our heads. Clearly, there are pitchers in the MLB more dominant than JA Happ, and APPS would tell us there are many. Here is a list of the Top 20 Pitchers in 2016 in APPS who had at least 20 starts.
+I've found that eQS is a good metric to use when you're evaluating a pitcher's *consistency*. There's no doubt JA Happ was one of the most consistent pitchers of 2016. We just don't think of him as dominating. Unfortunately, eQS doesn't really capture the *dominance* of a pitcher, but we don't need to look far for a metric which does: PPS. eQS answers the "yes" or "no" question of whether a performance was better than league average; PPS tells us by how much. The most dominating pitchers will consistently have high PPS's. Thus, in order to capture this "dominance", I simply chose to look at the starter's Average PPS (APPS) over the course of the full season. In baseball terms, the Average Pitching Performance Score (APPS) is the average lead, or deficit, you can expect to have at the end of the inning of which the starter leaves the game.
+
+You'll be glad to hear this paints a picture much closer to what's already in our heads. Clearly, there are pitchers in the MLB more dominant than JA Happ, and APPS would tell us there are many. Here is a list of the Top 20 Pitchers in 2016 in APPS (with at least 20 starts).
 
 | Starting Pitcher |  GS  |  eQS  |  APPS
 :-----------------:|:----:|:-----:|:------:
@@ -277,16 +279,12 @@ Masahiro Tanaka    |  31  |  21   |  0.867
 Carlos Martinez    |  31  |  21   |  0.862
 Jose Quintana      |  32  |  22   |  0.857
 Chris Sale         |  32  |  24   |  0.826
-JA Happ            |  32  |  26   |  0.823
+**JA Happ            |  32  |  26   |  0.823**
 Julio Teheran      |  30  |  19   |  0.823
 
-If there's one thing you should take away from this, Clayton Kershaw was a **beast** when he wasn't injured. An APPS of 2.105 basically tells us that by the end of the inning Kershaw left the game, you could expect a 2.105 run lead. Ridiculous!
+If it didn't already jump out at you, Clayton Kershaw was a beast when he was on the mound. An APPS of 2.105 basically tells us that by the end of the inning Kershaw left the game, you could expect a 2.105 run lead. Ridiculous!
 
-> The Average Pitching Performance Score (APPS) is the average lead, or deficit, you can expect to have at the end of the inning of which the starter leaves the game.
-
-![](plot_ERA_APPS.jpeg)
-
-Surprisingly, Kershaw's 2016 season didn't even crack the Top Ten in the all-time list dating back to 1925. According to APPS, Pedro Martinez's 2000 season was the most dominant single-season performance in the history of baseball. Yeah, I don't think APPS is broken.
+Yet, Kershaw's 2016 season didn't even crack the Top Ten in the all-time list, dating back to 1925. According to APPS, Pedro Martinez's 2000 season was the most dominant single-season performance in the history of baseball. Yeah, I don't think APPS is broken.
 
 | Starting Pitcher | Year |  GS  |  eQS  |  APPS
 :-----------------:|:----:|:----:|:-----:|:------:
@@ -301,7 +299,7 @@ Lefty Grove        | 1931 |  30  |  25   | 2.194
 Kevin Brown        | 1996 |  32  |  27   | 2.192
 Hal Schumacher     | 1933 |  27  |  23   | 2.179
 
-But the fun doesn't end there! With APPS we quantified pitching performance in terms of runs. We also know the average number of runs that will score in an inning, so we can convert APPS into a metric that's in terms of innings!
+The fun doesn't end there! With APPS we quantified pitching performance *in terms of runs*. We also know the average runs that score per inning, so we can create a new metric that's *in terms of innings*!
 
 I like to call it Free Innings (FInn). If you take a starter's PPS from a single game and divide it by `LARA`, you get the additional innings the starter gives you 'for free' compared to the number of innings a league average pitcher would pitch to give up the same number of runs. For example, if a starter pitches a complete game shutout, he would earn 9 Free Innings. A league average pitcher would have to pitch 0 innings to give up 0 runs, so the starter went 9 innings longer than what a league average pitcher would have to pitch to give up 0 runs. You could also do the math; he would have a PPS of 9 times `LARA` for that game, and (9*`LARA`)/`LARA` is 9 FInn.
 
@@ -311,4 +309,12 @@ FInn is a bit more intriguing to me than APPS because Free Innings is a counting
 
 ![](plot_WAR_FInn.jpeg)
 
-Check out the all-time leaderboard for FInn
+Check out the all-time leaderboard for FInn ...
+
+## Summary
+
+The **"enhanced" Quality Start** tells us whether or not a starting pitcher pitched better than league average. This modified approach takes away the minimum inning requirement.
+
+The **Average Pitching Performance Score** tells us the average lead, or deficit, you can expect to have at the end of the inning of which the starter leaves the game.
+
+**Free Innings** are the additional scoreless innings a starting pitcher gives, or costs, his team compared to the number of innings a league average starter would have to pitch to allow the same number of runs.
