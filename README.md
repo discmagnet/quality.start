@@ -255,9 +255,9 @@ I may have shown the "enhanced" Quality Start is a better indicator of pitching 
 
 Yes and no.
 
-I've found that eQS is a good metric to use when you're evaluating a pitcher's *consistency*. There's no doubt JA Happ was one of the most consistent pitchers of 2016. We just don't think of him as dominating. Unfortunately, eQS doesn't really capture the *dominance* of a pitcher, but we don't need to look far for a metric which does: PPS. eQS answers the "yes" or "no" question of whether a performance was better than league average; PPS tells us by how much. The most dominating pitchers will consistently have high PPS's. Thus, in order to capture this "dominance", I simply chose to look at the starter's Average PPS (APPS) over the course of the full season. In baseball terms, the Average Pitching Performance Score (APPS) is the average lead, or deficit, you can expect to have at the end of the inning of which the starter leaves the game.
+I've found that eQS is a good metric to use when you're evaluating a pitcher's *consistency*. There's no doubt JA Happ was one of the most consistent pitchers of 2016. We just don't think of him as dominating. Unfortunately, eQS doesn't really capture the *dominance* of a pitcher, but we don't need to look far for a metric which does: PPS. eQS answers the "yes" or "no" question of whether a performance was better than league average; PPS tells us by how much. The most dominating pitchers will consistently have high PPS's. Thus, in order to capture this "dominance", I simply chose to look at the starter's average PPS over the course of the full season. In baseball terms, the Average Pitching Performance Score (APPS) is the average lead, or deficit, you can expect to have at the end of the inning of which the starter leaves the game.
 
-You'll be glad to hear this paints a picture much closer to what's already in our heads. Clearly, there are pitchers in the MLB more dominant than JA Happ, and APPS would tell us there are many. Here is a list of the Top 20 Pitchers in 2016 in APPS (with at least 20 starts).
+You'll be glad to hear this paints a picture much closer to what's already in our heads. Clearly, there were pitchers in 2016 more dominant than JA Happ, and APPS would tell us there are many. Here is a list of the Top 20 Pitchers of 2016 in APPS (with at least 20 starts).
 
 | Starting Pitcher |  GS  |  eQS  |  APPS
 :-----------------:|:----:|:-----:|:------:
@@ -279,7 +279,7 @@ Masahiro Tanaka    |  31  |  21   |  0.867
 Carlos Martinez    |  31  |  21   |  0.862
 Jose Quintana      |  32  |  22   |  0.857
 Chris Sale         |  32  |  24   |  0.826
-**JA Happ            |  32  |  26   |  0.823**
+**JA Happ**            |  **32**  |  **26**   |  **0.823**
 Julio Teheran      |  30  |  19   |  0.823
 
 If it didn't already jump out at you, Clayton Kershaw was a beast when he was on the mound. An APPS of 2.105 basically tells us that by the end of the inning Kershaw left the game, you could expect a 2.105 run lead. Ridiculous!
@@ -324,24 +324,24 @@ Did you notice #10? Ridiculous!
 
 ## Summary
 
+IMO, Clayton Kershaw is the best pitcher in the history of baseball.
+
 The **"enhanced" Quality Start** tells us whether or not a starting pitcher pitched better than league average. This modified approach incorporates run expectancy and takes away the minimum inning requirement. As a result, this improves the correlation between ERA and "quality" start conversion rates, especially for starters that don't pitch deep into ballgames. I've only talked about ERA so far, but I also examined correlations with other pitching performance statistics such as Opponent Batting Average (AVG), WHIP, WAR, xFIP, WPA, RE24, K/9, and Winning Percentage (W%). In most cases, these statistics correlated better with eQS (bolded).
 
 | Statistic | Correlation w/ QS | Correlation w/ eQS |
 :----------:|:-----------------:|:-------------------:
-**ERA | -0.767 | -0.819**
-**AVG | -0.572 | -0.656**
-**WHIP | -0.708 | -0.731**
+**ERA** | **-0.767** | **-0.819**
+**AVG** | **-0.572** | **-0.656**
+**WHIP** | **-0.708** | **-0.731**
 WAR | 0.676 | 0.663
 xFIP | -0.549 | -0.477
-**WPA | 0.734 | 0.840**
-**RE24 | 0.738 | 0.850**
-**K/9 | 0.294 | 0.388**
-**W% | 0.532 | 0.591**
+**WPA** | **0.734** | **0.840**
+**RE24** | **0.738** | **0.850**
+**K/9** | **0.294** | **0.388**
+**W%** | **0.532** | **0.591**
 
 The **Average Pitching Performance Score** tells us the average lead, or deficit, you can expect to have at the end of the inning of which the starter leaves the game.
 
 **Free Innings** are the additional scoreless innings a starting pitcher gives, or costs, his team compared to the number of innings a league average starter would have to pitch to allow the same number of runs.
-
-IMO, Clayton Kershaw is the best pitcher in the history of baseball!
 
 All of my supporting R code can be found on my GitHub page: https://github.com/discmagnet/quality.start
