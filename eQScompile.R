@@ -100,6 +100,7 @@ eQS14 <- quality(2014,"")
 eQS15 <- quality(2015,"")
 eQS16 <- quality(2016,"")
 eQS17 <- quality(2017,"")
+eQS18 <- quality(2018,"")
 
 eQS_season <- bind_rows(eQS25,eQS26,eQS27,eQS28,eQS29,eQS30,
                         eQS31,eQS32,eQS33,eQS34,eQS35,eQS36,
@@ -116,7 +117,7 @@ eQS_season <- bind_rows(eQS25,eQS26,eQS27,eQS28,eQS29,eQS30,
                         eQS97,eQS98,eQS99,eQS00,eQS01,eQS02,
                         eQS03,eQS04,eQS05,eQS06,eQS07,eQS08,
                         eQS09,eQS10,eQS11,eQS12,eQS13,eQS14,
-                        eQS15,eQS16,eQS17)
+                        eQS15,eQS16,eQS17,eQS18)
 
 eQS_career <- eQS_season %>% mutate(ones = 1)
 eQS_career <- eQS_career %>% 
