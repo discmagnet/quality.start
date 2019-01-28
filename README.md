@@ -347,5 +347,3 @@ The **Average Pitching Performance Score** tells us the average lead, or deficit
 **Free Innings** are the additional scoreless innings a starting pitcher gives, or costs, his team compared to the number of innings a league average starter would have to pitch to allow the same number of runs.
 
 All of my supporting R code can be found on my GitHub page: https://github.com/discmagnet/quality.start
-
-test
