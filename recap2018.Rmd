@@ -1,0 +1,42 @@
+# Checking in with eQS: A 2018 Recap
+
+## First Pitch
+
+Back in July 2018, I wrote an article which introduced three new statistics that I developed to better evaluate starting pitching performance. All the important details can be found in the article (link), but here’s a quick summary of what all happened.
+
+### The Enhanced Quality Start (eQS)
+
+The statistic that started this all. Unlike the old Quality Start where a pitcher needs to pitch at least six innings and allow no more than three earned runs, my new, “enhanced” Quality Start is awarded to a pitcher if he pitches *better than league average*. A wonderful statistic to look at if you want to see which pitchers are the most **consistent**.
+
+### Average Pitching Performance Score (APPS)
+
+Building off of the Enhanced Quality Start, the Average Pitching Performance Score answers the question of *how much* better or worse than league average did this starter pitch. By definition, it tells us the average lead, or deficit, you can expect to have at the end of the inning of which the starter leaves the game. A wonderful statistic to look at if you want to see which pitchers are the most **dominant**.
+
+### Free Innings (FInn)
+
+Building off of Average Pitching Performance Score, Free Innings also answers the question of how much better or worse than league average did this starter pitch, but this time it’s *in terms of innings*. By definition, it tells us the additional scoreless innings a starting pitcher gives, or costs, his team compared to the number of innings a league average starter would have to pitch to allow the same number of runs. A wonderful statistic to look at if you want to see which pitchers are the most **valuable**.
+
+So before we completely say “Good-bye” to 2018 and “Hello” to 2019, let’s take a look at what these stats had to say about the results of last season.
+
+## Cy Young Voters Got It Right
+
+## The Legend of Kershaw Continues
+
+If it wasn’t already obvious in my first article, I kind of have a thing for Clayton Kershaw (it might be worth noting he’s been my first-round pick in fantasy the past two years). Anyways, after introducing Free Innings in that article, I provided a leaderboard of the Top Ten Pitchers of All-Time in Career FInn since 1925. Through 2017, Clayton Kershaw accumulated 792.0 FInn in 10 seasons, good for #10 on the all-time list. Here is the updated leaderboard through 2018.
+
+| Starting Pitcher | Seasons |  GS  |  eQS  |  FInn
+:-----------------:|:-------:|:----:|:-----:|:------:
+Roger Clemens      |  24     |  707 |  486  | 1242.0
+Greg Maddux        |  23     |  740 |  494  | 1143.1
+Tom Seaver         |  20     |  647 |  426  | 1099.2
+Warren Spahn       |  21     |  633 |  419  | 1054.2
+Jim Palmer         |  19     |  521 |  332  | 907.1
+Pedro Martinez     |  18     |  409 |  291  | 897.0
+**Clayton Kershaw**    |  **11**     |  **316** |  **246**  | **840.2**
+Randy Johnson      |  22     |  603 |  407  | 835.2
+Whitey Ford        |  16     |  437 |  294  | 822.0
+Lefty Grove        |  17     |  396 |  268  | 793.1
+
+Kershaw is now #7 on the all-time list! Ridiculous!
+
+## Top Rotations in Baseball
