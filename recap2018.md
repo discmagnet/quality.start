@@ -30,17 +30,17 @@ The Cy Young Award is given to the best pitcher in each league. Defining who is 
 :-----:|:----------------:|:----:|:-----:
    1   | Jacob deGrom     |  32  |  29
    2   | Aaron Nola       |  33  |  27
-   -   | Max Scherzer     |  33  |  27
-   -   | Blake Snell      |  31  |  27
+   .   | Max Scherzer     |  33  |  27
+   .   | Blake Snell      |  31  |  27
    5   | Justin Verlander |  34  |  26
    6   | Gerrit Cole      |  32  |  24
-   -   | Kyle Freeland    |  33  |  24
+   .   | Kyle Freeland    |  33  |  24
    8   | Jhoulys Chacin   |  35  |  23
-   -   | Zack Greinke     |  33  |  23
-   -   | Corey Kluber     |  33  |  23
-   -   | Miles Mikolas    |  32  |  23
-   -   | Chris Sale       |  27  |  23
-   -   | Jameson Taillon  |  32  |  23
+   .   | Zack Greinke     |  33  |  23
+   .   | Corey Kluber     |  33  |  23
+   .   | Miles Mikolas    |  32  |  23
+   .   | Chris Sale       |  27  |  23
+   .   | Jameson Taillon  |  32  |  23
 
 No surprise here. Jacob deGrom tops the list for the National League (and entire MLB) with 29 eQS (this means that deGrom pitched better than league average in 29 starts) in 32 starts. To my own surprise, we find that Blake Snell leads the American League with 27 eQS in 31 starts. Despite pitching in three more games, Verlander only had 26 eQS.
 
